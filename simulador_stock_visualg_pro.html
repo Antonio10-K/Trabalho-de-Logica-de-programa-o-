@@ -1,0 +1,304 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.root{font-family:var(--font-sans);padding:1rem 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.root{grid-template-columns:1fr}}
+
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.panel-head{padding:12px 16px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:8px}
+.panel-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.03em}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot-r{background:#E24B4A}.dot-y{background:#EF9F27}.dot-g{background:#639922}
+
+.code-wrap{background:#16161e;padding:16px;overflow-x:auto;font-family:var(--font-mono);font-size:12px;line-height:2;min-height:420px}
+.kw{color:#cba6f7}.fn{color:#89dceb}.str{color:#a6e3a1}.num{color:#fab387}.cmt{color:#45475a;font-style:italic}.var{color:#f5c2e7}.op{color:#89b4fa}.plain{color:#cdd6f4}
+
+.dash{padding:16px;display:flex;flex-direction:column;gap:12px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+.metric-label{font-size:11px;color:var(--color-text-tertiary);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.metric-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.metric-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px}
+.b-ok{background:var(--color-background-success);color:var(--color-text-success)}
+.b-warn{background:var(--color-background-warning);color:var(--color-text-warning)}
+.b-danger{background:var(--color-background-danger);color:var(--color-text-danger)}
+
+.terminal{background:#16161e;border-radius:var(--border-radius-md);padding:12px 14px;font-family:var(--font-mono);font-size:11.5px;line-height:1.8;height:160px;overflow-y:auto}
+.tg{color:#a6e3a1}.ty{color:#f9e2af}.tr{color:#f38ba8}.tb{color:#89b4fa}.tc{color:#45475a}.tp{color:#cdd6f4}
+
+.ctrl-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ctrl-row input{width:100px;font-size:13px}
+.ctrl-row select{font-size:13px;padding:6px 8px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-primary);height:36px}
+
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.setup-grid input{font-size:13px}
+.field-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+
+.bar-wrap{height:6px;background:var(--color-background-tertiary);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;transition:width .4s}
+
+.log-entry{display:flex;gap:8px;align-items:baseline;padding:1px 0}
+.log-ts{color:#45475a;font-size:10px;min-width:40px}
+.log-tag{font-size:10px;padding:1px 5px;border-radius:3px;font-weight:500}
+.tag-in{background:#1a2e1a;color:#a6e3a1}.tag-out{background:#2e1a1a;color:#f38ba8}.tag-info{background:#1a1e2e;color:#89b4fa}.tag-warn{background:#2e2a1a;color:#f9e2af}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:4px 0}
+</style>
+
+<div class="root">
+
+<div class="panel">
+  <div class="panel-head">
+    <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+    <span class="panel-title" style="margin-left:4px">visualg — simuladorstock.alg</span>
+  </div>
+  <div class="code-wrap">
+<span class="cmt">{ Simulador de Stock com Alertas }</span><br>
+<span class="cmt">{ Estruturas: enquanto, se/senao, leia, escreval }</span><br><br>
+<span class="kw">algoritmo</span> <span class="str">"SimuladorStock"</span><br>
+<span class="kw">var</span><br>
+&nbsp;&nbsp;<span class="var">produto</span> &nbsp;&nbsp;&nbsp;&nbsp;: <span class="fn">caractere</span><br>
+&nbsp;&nbsp;<span class="var">quantidade</span>  : <span class="fn">inteiro</span><br>
+&nbsp;&nbsp;<span class="var">minimo</span> &nbsp;&nbsp;&nbsp;&nbsp;: <span class="fn">inteiro</span><br>
+&nbsp;&nbsp;<span class="var">entrada</span> &nbsp;&nbsp;&nbsp;: <span class="fn">inteiro</span><br>
+&nbsp;&nbsp;<span class="var">saida</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="fn">inteiro</span><br>
+&nbsp;&nbsp;<span class="var">opcao</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="fn">inteiro</span><br>
+&nbsp;&nbsp;<span class="var">continuar</span>  : <span class="fn">logico</span><br><br>
+<span class="kw">inicio</span><br>
+&nbsp;&nbsp;<span class="var">continuar</span> <span class="op">&lt;-</span> <span class="kw">verdadeiro</span><br>
+&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"Nome do produto: "</span>)<br>
+&nbsp;&nbsp;<span class="fn">leia</span>(<span class="var">produto</span>)<br>
+&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"Quantidade inicial: "</span>)<br>
+&nbsp;&nbsp;<span class="fn">leia</span>(<span class="var">quantidade</span>)<br>
+&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"Stock mínimo: "</span>)<br>
+&nbsp;&nbsp;<span class="fn">leia</span>(<span class="var">minimo</span>)<br><br>
+&nbsp;&nbsp;<span class="kw">enquanto</span> (<span class="var">continuar</span> <span class="op">=</span> <span class="kw">verdadeiro</span>) <span class="kw">faca</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"1-Entrada 2-Saida 3-Ver 0-Sair"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">leia</span>(<span class="var">opcao</span>)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">se</span> (<span class="var">opcao</span> <span class="op">=</span> <span class="num">1</span>) <span class="kw">entao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">leia</span>(<span class="var">entrada</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">quantidade</span> <span class="op">&lt;-</span> <span class="var">quantidade</span> <span class="op">+</span> <span class="var">entrada</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">senao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">se</span> (<span class="var">opcao</span> <span class="op">=</span> <span class="num">2</span>) <span class="kw">entao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">leia</span>(<span class="var">saida</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">se</span> (<span class="var">saida</span> <span class="op">&lt;=</span> <span class="var">quantidade</span>) <span class="kw">entao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">quantidade</span> <span class="op">&lt;-</span> <span class="var">quantidade</span> <span class="op">-</span> <span class="var">saida</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">senao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"ERRO: stock insuficiente"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">fimse</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">senao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">se</span> (<span class="var">opcao</span> <span class="op">=</span> <span class="num">0</span>) <span class="kw">entao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">continuar</span> <span class="op">&lt;-</span> <span class="kw">falso</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">fimse</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">fimse</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">fimse</span><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">se</span> (<span class="var">quantidade</span> <span class="op">&lt;=</span> <span class="num">0</span>) <span class="kw">entao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"CRITICO: stock zerado!"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">senao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">se</span> (<span class="var">quantidade</span> <span class="op">&lt;</span> <span class="var">minimo</span>) <span class="kw">entao</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">escreval</span>(<span class="str">"AVISO: abaixo do mínimo!"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">fimse</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">fimse</span><br>
+&nbsp;&nbsp;<span class="kw">fimenquanto</span><br>
+<span class="kw">fimalgoritmo</span>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+
+  <div class="panel" id="setup-panel">
+    <div class="panel-head">
+      <span class="panel-title">configurar produto</span>
+    </div>
+    <div class="dash">
+      <div class="setup-grid">
+        <div>
+          <div class="field-label">Nome do produto</div>
+          <input id="i-nome" type="text" value="Caneta Bic" style="width:100%"/>
+        </div>
+        <div>
+          <div class="field-label">Quantidade inicial</div>
+          <input id="i-qty" type="number" value="80" min="0" style="width:100%"/>
+        </div>
+        <div>
+          <div class="field-label">Stock mínimo</div>
+          <input id="i-min" type="number" value="15" min="1" style="width:100%"/>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button onclick="iniciar()" style="width:100%">Iniciar simulação</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="main-panel" style="display:none">
+    <div class="panel-head" style="justify-content:space-between">
+      <span class="panel-title" id="h-nome">—</span>
+      <span class="badge b-ok" id="h-badge">Normal</span>
+    </div>
+    <div class="dash">
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Em stock</div>
+          <div class="metric-val" id="m-qty">—</div>
+          <div class="metric-sub" id="m-pct">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Entradas</div>
+          <div class="metric-val" id="m-in">0</div>
+          <div class="metric-sub">total</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Saídas</div>
+          <div class="metric-val" id="m-out">0</div>
+          <div class="metric-sub">total</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--color-text-tertiary)">nível de stock</span>
+          <span style="font-size:11px;color:var(--color-text-tertiary)" id="bar-lbl">—</span>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" id="bar-fill" style="width:0%;background:#639922"></div>
+        </div>
+      </div>
+
+      <hr class="divider"/>
+
+      <div class="ctrl-row">
+        <select id="sel-op">
+          <option value="1">Entrada de stock</option>
+          <option value="2">Saída de stock</option>
+          <option value="3">Ver estado</option>
+          <option value="0">Encerrar</option>
+        </select>
+        <input id="i-val" type="number" value="10" min="1" placeholder="Qtd"/>
+        <button onclick="executar()">Executar</button>
+      </div>
+
+      <div>
+        <div style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">registo de operações</div>
+        <div class="terminal" id="term"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+let qty=0,mn=0,nome='',totalIn=0,totalOut=0,ativo=false,ops=0;
+
+function fmt(n){return n}
+function ts(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')+':'+d.getSeconds().toString().padStart(2,'0')}
+
+function log(msg,cls,tag,tagCls){
+  const t=document.getElementById('term');
+  const tc=tagCls||'tag-info';
+  const tg=tag?`<span class="log-tag ${tc}">${tag}</span> `:'';
+  t.innerHTML+=`<div class="log-entry"><span class="log-ts">${ts()}</span>${tg}<span class="${cls||'tp'}">${msg}</span></div>`;
+  t.scrollTop=t.scrollHeight;
+}
+
+function atualizar(){
+  document.getElementById('m-qty').textContent=qty;
+  document.getElementById('m-in').textContent=totalIn;
+  document.getElementById('m-out').textContent=totalOut;
+
+  const pct=mn>0?Math.min(100,Math.round((qty/mn)*100)):100;
+  const displayPct=Math.min(100,Math.round((qty/(mn*3))*100));
+  document.getElementById('m-pct').textContent='mín: '+mn;
+  document.getElementById('bar-lbl').textContent=qty+' / '+mn+' mín';
+
+  const fill=document.getElementById('bar-fill');
+  fill.style.width=displayPct+'%';
+
+  const badge=document.getElementById('h-badge');
+  if(qty<=0){
+    badge.className='badge b-danger';badge.textContent='Stock zerado';
+    fill.style.background='#E24B4A';
+  } else if(qty<mn){
+    badge.className='badge b-warn';badge.textContent='Abaixo do mínimo';
+    fill.style.background='#EF9F27';
+  } else {
+    badge.className='badge b-ok';badge.textContent='Normal';
+    fill.style.background='#639922';
+  }
+}
+
+function alertaCondicional(){
+  if(qty<=0){
+    log('se (quantidade <= 0) → ALERTA CRÍTICO: stock zerado!','tr','CRÍTICO','tag-out');
+  } else if(qty<mn){
+    log('se (quantidade < minimo) → AVISO: abaixo do mínimo! ('+qty+' < '+mn+')','ty','AVISO','tag-warn');
+  } else {
+    log('se (quantidade >= minimo) → stock dentro dos limites','tg','OK','tag-in');
+  }
+}
+
+function iniciar(){
+  nome=document.getElementById('i-nome').value.trim()||'Produto';
+  qty=parseInt(document.getElementById('i-qty').value)||0;
+  mn=parseInt(document.getElementById('i-min').value)||10;
+  totalIn=0;totalOut=0;ativo=true;
+
+  document.getElementById('h-nome').textContent=nome;
+  document.getElementById('setup-panel').style.display='none';
+  document.getElementById('main-panel').style.display='block';
+
+  log('algoritmo iniciado','tb','INÍCIO','tag-info');
+  log('leia(produto) → "'+nome+'"','tc');
+  log('leia(quantidade) → '+qty,'tc');
+  log('leia(minimo) → '+mn,'tc');
+  log('continuar ← verdadeiro','tc');
+  log('enquanto (continuar = verdadeiro) faca','tb','LOOP','tag-info');
+  atualizar();
+  alertaCondicional();
+}
+
+function executar(){
+  if(!ativo)return;
+  const op=parseInt(document.getElementById('sel-op').value);
+  const val=parseInt(document.getElementById('i-val').value)||0;
+  ops++;
+
+  log('leia(opcao) → '+op,'tc');
+
+  if(op===1){
+    log('se (opcao = 1) entao — Entrada','tb','SE','tag-info');
+    log('leia(entrada) → '+val,'tc');
+    qty+=val;totalIn+=val;
+    log('quantidade ← quantidade + '+val+' = '+qty,'tg','ENTRADA','tag-in');
+    atualizar();alertaCondicional();
+  } else if(op===2){
+    log('senao se (opcao = 2) entao — Saída','tb','SE','tag-info');
+    log('leia(saida) → '+val,'tc');
+    if(val<=qty){
+      log('se (saida <= quantidade) entao','tb','SE','tag-info');
+      qty-=val;totalOut+=val;
+      log('quantidade ← quantidade - '+val+' = '+qty,'tg','SAÍDA','tag-out');
+      atualizar();alertaCondicional();
+    } else {
+      log('senao → ERRO: stock insuficiente ('+val+' > '+qty+')','tr','ERRO','tag-out');
+    }
+  } else if(op===3){
+    log('escreval — Ver estado','tb','SE','tag-info');
+    log('produto: "'+nome+'" | quantidade: '+qty+' | mínimo: '+mn,'tg','INFO','tag-info');
+    alertaCondicional();
+  } else if(op===0){
+    log('senao se (opcao = 0) entao','tb','SE','tag-info');
+    log('continuar ← falso','tc');
+    log('fimenquanto — loop encerrado após '+ops+' operações','tb','FIM','tag-info');
+    log('fimalgoritmo','tb');
+    ativo=false;
+    document.getElementById('sel-op').disabled=true;
+    document.getElementById('i-val').disabled=true;
+    document.querySelector('button[onclick="executar()"]').disabled=true;
+  }
+}
+</script>
